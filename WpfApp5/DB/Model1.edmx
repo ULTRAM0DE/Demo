@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище TsaplinModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Tsaplin.dbo.client_a_import" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="client_a_import">
+          <Key>
+            <PropertyRef Name="Фамилия" />
+            <PropertyRef Name="Пол" />
+            <PropertyRef Name="Телефон" />
+            <PropertyRef Name="Дата_рождения" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Дата_регистрации" />
+          </Key>
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Имя" Type="nvarchar" MaxLength="50" />
+          <Property Name="Отчество" Type="nvarchar" MaxLength="50" />
+          <Property Name="Пол" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Телефон" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Дата_рождения" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Дата_регистрации" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Tsaplin.dbo.service_a_import" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="service_a_import">
+          <Key>
+            <PropertyRef Name="Наименование_услуги" />
+            <PropertyRef Name="Главное_изображение" />
+            <PropertyRef Name="Длительность" />
+            <PropertyRef Name="Стоимость" />
+            <PropertyRef Name="Действующая_скидка" />
+          </Key>
+          <Property Name="Наименование_услуги" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Главное_изображение" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Длительность" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Стоимость" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Действующая_скидка" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TypeUser">
+          <Key>
+            <PropertyRef Name="IdTypeUser" />
+          </Key>
+          <Property Name="IdTypeUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <Association Name="FK_User_TypeUser">
+          <End Role="TypeUser" Type="Self.TypeUser" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeUser">
+              <PropertyRef Name="IdTypeUser" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TsaplinModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeUser" EntityType="Self.TypeUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="client_a_import" EntityType="Self.client_a_import" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [client_a_import].[Фамилия] AS [Фамилия], 
+    [client_a_import].[Имя] AS [Имя], 
+    [client_a_import].[Отчество] AS [Отчество], 
+    [client_a_import].[Пол] AS [Пол], 
+    [client_a_import].[Телефон] AS [Телефон], 
+    [client_a_import].[Дата_рождения] AS [Дата_рождения], 
+    [client_a_import].[Email] AS [Email], 
+    [client_a_import].[Дата_регистрации] AS [Дата_регистрации]
+    FROM [dbo].[client_a_import] AS [client_a_import]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="service_a_import" EntityType="Self.service_a_import" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [service_a_import].[Наименование_услуги] AS [Наименование_услуги], 
+    [service_a_import].[Главное_изображение] AS [Главное_изображение], 
+    [service_a_import].[Длительность] AS [Длительность], 
+    [service_a_import].[Стоимость] AS [Стоимость], 
+    [service_a_import].[Действующая_скидка] AS [Действующая_скидка]
+    FROM [dbo].[service_a_import] AS [service_a_import]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_User_TypeUser" Association="Self.FK_User_TypeUser">
+            <End Role="TypeUser" EntitySet="TypeUser" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TsaplinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TypeUser">
+          <Key>
+            <PropertyRef Name="IdTypeUser" />
+          </Key>
+          <Property Name="IdTypeUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_TypeUser" FromRole="TypeUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <NavigationProperty Name="TypeUser" Relationship="Self.FK_User_TypeUser" FromRole="User" ToRole="TypeUser" />
+        </EntityType>
+        <EntityType Name="client_a_import">
+          <Key>
+            <PropertyRef Name="Фамилия" />
+            <PropertyRef Name="Пол" />
+            <PropertyRef Name="Телефон" />
+            <PropertyRef Name="Дата_рождения" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Дата_регистрации" />
+          </Key>
+          <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Пол" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Телефон" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Дата_рождения" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Дата_регистрации" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="service_a_import">
+          <Key>
+            <PropertyRef Name="Наименование_услуги" />
+            <PropertyRef Name="Главное_изображение" />
+            <PropertyRef Name="Длительность" />
+            <PropertyRef Name="Стоимость" />
+            <PropertyRef Name="Действующая_скидка" />
+          </Key>
+          <Property Name="Наименование_услуги" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Главное_изображение" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Длительность" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Стоимость" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Действующая_скидка" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_User_TypeUser">
+          <End Role="TypeUser" Type="Self.TypeUser" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeUser">
+              <PropertyRef Name="IdTypeUser" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TsaplinEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TypeUser" EntityType="Self.TypeUser" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="client_a_import" EntityType="Self.client_a_import" />
+          <EntitySet Name="service_a_import" EntityType="Self.service_a_import" />
+          <AssociationSet Name="FK_User_TypeUser" Association="Self.FK_User_TypeUser">
+            <End Role="TypeUser" EntitySet="TypeUser" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TsaplinModelContainer" CdmEntityContainer="TsaplinEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TsaplinModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeUser">
+            <EntityTypeMapping TypeName="TsaplinModel.TypeUser">
+              <MappingFragment StoreEntitySet="TypeUser">
+                <ScalarProperty Name="IdTypeUser" ColumnName="IdTypeUser" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="TsaplinModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client_a_import">
+            <EntityTypeMapping TypeName="TsaplinModel.client_a_import">
+              <MappingFragment StoreEntitySet="client_a_import">
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Пол" ColumnName="Пол" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="Дата_рождения" ColumnName="Дата_рождения" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Дата_регистрации" ColumnName="Дата_регистрации" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="service_a_import">
+            <EntityTypeMapping TypeName="TsaplinModel.service_a_import">
+              <MappingFragment StoreEntitySet="service_a_import">
+                <ScalarProperty Name="Наименование_услуги" ColumnName="Наименование_услуги" />
+                <ScalarProperty Name="Главное_изображение" ColumnName="Главное_изображение" />
+                <ScalarProperty Name="Длительность" ColumnName="Длительность" />
+                <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+                <ScalarProperty Name="Действующая_скидка" ColumnName="Действующая_скидка" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
