@@ -38,8 +38,21 @@ namespace WpfApp5.View
                 MessageBox.Show("Введите цену");
                 return;
             }
+            try
+            {
+                double p = Convert.ToDouble(tbPrice.Text);
+                if (p < 0)
+                {
+                    MessageBox.Show("Цена не может быть отрицательной");
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Укажите верный формат цены");
+            }
 
-                if(string.IsNullOrWhiteSpace(tbSale.Text))
+            if (string.IsNullOrWhiteSpace(tbSale.Text))
             {
                 MessageBox.Show("Введите скидку, или если ее нет то введите значение 0");
                 return;
