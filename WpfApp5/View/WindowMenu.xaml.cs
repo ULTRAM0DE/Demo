@@ -24,10 +24,17 @@ namespace WpfApp5.View
             InitializeComponent();
         }
 
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            View.WindowAllMaterial windowAllMaterial = new WindowAllMaterial();
+            windowAllMaterial.Show();
+            this.Close();
+        }
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            View.WindowAllMaterials windowAllMaterials = new WindowAllMaterials();
-            windowAllMaterials.Show();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             this.Close();
         }
     }

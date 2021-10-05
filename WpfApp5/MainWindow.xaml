@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp5"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"  Icon="/Услуги автосервиса\service_logo.png">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="362,211,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <TextBox x:Name="txPassword" HorizontalAlignment="Left" Height="23" Margin="378,175,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txLogin" HorizontalAlignment="Left" Height="23" Margin="378,144,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button" Content="Вход" Background="#ff9c1a" HorizontalAlignment="Left" Margin="362,211,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <TextBox x:Name="txPassword" Background="#FFE1E1" HorizontalAlignment="Left" Height="23" Margin="362,174,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txLogin" Background="#FFE1E1" HorizontalAlignment="Left" Height="23" Margin="362,136,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="362,115,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

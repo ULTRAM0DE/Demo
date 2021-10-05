@@ -24,6 +24,8 @@ namespace WpfApp5
         public MainWindow()
         {
             InitializeComponent();
+            txLogin.Text = "GGWP";
+            txPassword.Text = "123";
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -43,7 +45,7 @@ namespace WpfApp5
         {
             try
             {
-                DB.TsaplinEntities entities = new DB.TsaplinEntities();
+                DB.TsaplinEntities6 entities = new DB.TsaplinEntities6();
                 var user = entities.User.Single(x => x.Login == login && x.Password == password);
                 return user;
             }

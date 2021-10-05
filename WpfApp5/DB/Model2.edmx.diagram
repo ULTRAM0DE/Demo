@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="871d4b293b934cd3921bb20be7b1836f" Name="Diagram1">
+      <Diagram DiagramId="51e61a1dd7504ef28ed6b9adf88416b2" Name="Diagram1">
         <EntityTypeShape EntityType="TsaplinModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TsaplinModel.TypeUser" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TsaplinModel.User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TsaplinModel.client_a_import" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TsaplinModel.service_a_import" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="TsaplinModel.FK_User_TypeUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TsaplinModel.service_a_import" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -13,10 +13,10 @@ namespace WpfApp5.DB
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TsaplinEntities2 : DbContext
+    public partial class TsaplinEntities6 : DbContext
     {
-        public TsaplinEntities2()
-            : base("name=TsaplinEntities2")
+        public TsaplinEntities6()
+            : base("name=TsaplinEntities6")
         {
         }
     

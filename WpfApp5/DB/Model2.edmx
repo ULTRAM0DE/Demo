@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище TsaplinModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище TsaplinModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Tsaplin.dbo.client_a_import" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="client_a_import">
@@ -25,21 +25,16 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Дата_регистрации" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Tsaplin.dbo.service_a_import" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="service_a_import">
           <Key>
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="ImagePath" />
-            <PropertyRef Name="Time" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="Sale" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ImagePath" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Time" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Price" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Sale" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="256" />
+          <Property Name="Time" Type="int" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Sale" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -81,6 +76,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище TsaplinModelContainer">
+          <EntitySet Name="service_a_import" EntityType="Self.service_a_import" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeUser" EntityType="Self.TypeUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -96,22 +92,12 @@
     [client_a_import].[Дата_регистрации] AS [Дата_регистрации]
     FROM [dbo].[client_a_import] AS [client_a_import]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="service_a_import" EntityType="Self.service_a_import" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [service_a_import].[Name] AS [Name], 
-    [service_a_import].[ImagePath] AS [ImagePath], 
-    [service_a_import].[Time] AS [Time], 
-    [service_a_import].[Price] AS [Price], 
-    [service_a_import].[Sale] AS [Sale]
-    FROM [dbo].[service_a_import] AS [service_a_import]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_User_TypeUser" Association="Self.FK_User_TypeUser">
             <End Role="TypeUser" EntitySet="TypeUser" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TsaplinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -162,20 +148,6 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Дата_регистрации" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
-        <EntityType Name="service_a_import">
-          <Key>
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="ImagePath" />
-            <PropertyRef Name="Time" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="Sale" />
-          </Key>
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ImagePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Sale" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <Association Name="FK_User_TypeUser">
           <End Role="TypeUser" Type="Self.TypeUser" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -188,23 +160,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TsaplinEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TsaplinEntities6" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TypeUser" EntityType="Self.TypeUser" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="client_a_import" EntityType="Self.client_a_import" />
-          <EntitySet Name="service_a_import" EntityType="Self.service_a_import" />
           <AssociationSet Name="FK_User_TypeUser" Association="Self.FK_User_TypeUser">
             <End Role="TypeUser" EntitySet="TypeUser" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="service_a_import" EntityType="TsaplinModel.service_a_import" />
         </EntityContainer>
+        <EntityType Name="service_a_import">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="Int32" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Sale" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TsaplinModelContainer" CdmEntityContainer="TsaplinEntities2">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TsaplinModelContainer" CdmEntityContainer="TsaplinEntities6">
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="TsaplinModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -252,11 +235,12 @@
           <EntitySetMapping Name="service_a_import">
             <EntityTypeMapping TypeName="TsaplinModel.service_a_import">
               <MappingFragment StoreEntitySet="service_a_import">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Sale" ColumnName="Sale" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
